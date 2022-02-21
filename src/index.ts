@@ -1,13 +1,19 @@
-import express, { Request, Response } from 'express';
+import express, {Request, Response} from 'express';
+import {createConnection} from 'typeorm';
 
-const app = express();
+createConnection().then(() => {
 
-app.use(express.json());
+    const app = express();
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello Worlds!');
-});
+    app.use(express.json());
 
-app.listen(8000, () => {
-  console.log('Server started on port 8000');
+    app.get('/', (req: Request, res: Response) => {
+        res.send('Hello Worlds!');
+    });
+
+    app.listen(8000, () => {
+        console.log('Server started on port 8000');
+    });
+
+
 });
