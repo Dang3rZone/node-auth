@@ -1,5 +1,6 @@
-import express, {Request, Response} from 'express';
+import express from 'express';
 import {createConnection} from 'typeorm';
+import {routes} from "./routes";
 
 createConnection().then(() => {
 
@@ -7,9 +8,7 @@ createConnection().then(() => {
 
     app.use(express.json());
 
-    app.get('/', (req: Request, res: Response) => {
-        res.send('Hello Worlds!');
-    });
+    routes(app);
 
     app.listen(8000, () => {
         console.log('Server started on port 8000');
