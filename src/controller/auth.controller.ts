@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {getRepository} from "typeorm";
 import {User} from "../entity/user.entity";
 import bcryptjs from "bcryptjs";
-import {sign} from "jsonwebtoken";
+import {sign, verify} from "jsonwebtoken";
 
 export const Register = async (req: Request, res: Response) => {
     const body = req.body;
@@ -13,14 +13,14 @@ export const Register = async (req: Request, res: Response) => {
         });
     }
 
-    const user = await getRepository(User).save({
+    const {password, ...userData} = await getRepository(User).save({
         password: await bcryptjs.hash(body.password, 12),
         email: body.email,
         firstName: body.firstName,
         lastName: body.lastName,
     });
 
-    res.send(user);
+    res.send(userData);
 
 };
 
@@ -67,3 +67,38 @@ export const Login = async (req: Request, res: Response) => {
 
     res.send({message: "Logged in"});
 };
+
+export const AuthenticateUser = async (req: Request, res: Response) => {
+    try {
+
+
+        const cookie = req.cookies["refresh_token"];
+
+        const payload: any = await verify(cookie, process.env.REFRESH_SECRET || '');
+
+        if (!payload) {
+            return res.status(401).send({
+                message: "Invalid token"
+            });
+        }
+        const user = await getRepository(User).findOne({
+            where: {
+                id: payload.id
+            }
+        });
+
+        if (!user) {
+            return res.status(401).send({
+                message: "Invalid user"
+            });
+        }
+
+        const {password, ...userData} = user;
+
+        res.send(userData);
+    } catch (e) {
+        res.status(401).send({
+            message: "Invalid token"
+        });
+    }
+}
