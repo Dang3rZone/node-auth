@@ -102,3 +102,27 @@ export const AuthenticateUser = async (req: Request, res: Response) => {
         });
     }
 }
+
+export const RefreshToken = async (req: Request, res: Response) => {
+    try {
+        const cookie = req.cookies["refresh_token"];
+
+        const payload: any = await verify(cookie, process.env.REFRESH_SECRET || '');
+
+        if (!payload) {
+            return res.status(401).send({
+                message: "Invalid token"
+            });
+        }
+
+        const accessToken = sign({
+            id: payload.id,
+        }, process.env.ACCESS_SECRET || '', {expiresIn: "30s"});
+
+        res.send({message: "Token refreshed"});
+    } catch (e) {
+        res.status(401).send({
+            message: "Invalid token"
+        });
+    }
+}
