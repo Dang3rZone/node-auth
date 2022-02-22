@@ -126,3 +126,10 @@ export const RefreshToken = async (req: Request, res: Response) => {
         });
     }
 }
+
+export const Logout = async (req: Request, res: Response) => {
+    res.cookie("access_token", '', {maxAge: 0});
+    res.cookie("refresh_token", '', {maxAge: 0});
+
+    res.send({message: "Logged out"});
+}
