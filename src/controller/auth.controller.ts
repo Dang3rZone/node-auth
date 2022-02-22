@@ -49,7 +49,7 @@ export const Login = async (req: Request, res: Response) => {
 
     const accessToken = sign({
         id: user.id,
-    }, "access_secret", {expiresIn: "30s"});
+    }, process.env.ACCESS_SECRET || '', {expiresIn: "30s"});
 
     res.cookie("access_token", accessToken, {
         httpOnly: true,
@@ -58,7 +58,7 @@ export const Login = async (req: Request, res: Response) => {
 
     const refreshToken = sign({
         id: user.id,
-    }, "refresh_token", {expiresIn: "1w"});
+    }, process.env.REFRESH_SECRET || '', {expiresIn: "1w"});
 
     res.cookie("refresh_token", refreshToken, {
         httpOnly: true,
