@@ -16,4 +16,9 @@ export class User {
 
     @Column()
     lastName!: string;
+
+    @Column({
+        default: ''
+    })
+    tfa_secret!: string;
 }
