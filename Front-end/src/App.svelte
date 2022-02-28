@@ -1,30 +1,15 @@
-<script lang="ts">
-	export let name: string;
-</script>
-
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+<main class="form-signin">
+	<form>
+		<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+		<div class="form-floating">
+			<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+			<label for="floatingInput">Email address</label>
+		</div>
+		<div class="form-floating">
+			<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+			<label for="floatingPassword">Password</label>
+		</div>
+		<button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+		<p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+	</form>
 </main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
