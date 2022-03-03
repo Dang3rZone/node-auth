@@ -4,7 +4,7 @@
     import {push} from "svelte-spa-router";
 
     let code = '';
-    let loginDate = {};
+    export let loginDate = {};
 
     $:submit = async () => {
         const {data} = await axios.post('two-factor', {...loginDate, code}, {withCredentials: true});
