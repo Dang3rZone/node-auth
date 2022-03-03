@@ -11,7 +11,7 @@
         }, {withCredentials: true});
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
-        
+
         await push('/');
     }
 </script>
