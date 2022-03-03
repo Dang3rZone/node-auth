@@ -1,6 +1,7 @@
 <script>
     import axios from "axios";
     import {onMount} from "svelte";
+
     let message = 'You are not logged in';
 
     onMount(async () => {
@@ -12,5 +13,5 @@
 </script>
 
 <div class="container mt-5 text-center">
-<h3>{message}</h3>
+    <h3>{message}</h3>
 </div>

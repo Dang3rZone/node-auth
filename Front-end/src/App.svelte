@@ -4,6 +4,7 @@
     import Home from "./pages/Home.svelte";
     import Router, {link} from "svelte-spa-router";
     import {onMount} from "svelte";
+    import axios from "axios";
 
     const routes = {
         "/": Home,
@@ -14,17 +15,13 @@
     let auth = false;
 
     onMount(async () => {
-        try {
-            await axios.get('user');
+        const {status} = await axios.get('user');
 
-            auth = true;
-        } catch (e) {
-            auth = false;
-        }
+        auth = status === 200;
     })
 
-    $:logout =async ()=>{
-        await axios.post('logout',{},{withCredentials:true});
+    $:logout = async () => {
+        await axios.post('logout', {}, {withCredentials: true});
     }
 
 </script>
@@ -41,9 +38,10 @@
 
             {#if auth}
                 <div class="text-end">
-                    <a on:click={logout} href="/login" use:link type="button" class="btn btn-outline-light me-2">Logout</a>
+                    <a on:click={logout} href="/login" use:link type="button"
+                       class="btn btn-outline-light me-2">Logout</a>
                 </div>
-                {:else}
+            {:else}
                 <div class="text-end">
                     <a href="/login" use:link type="button" class="btn btn-outline-light me-2">Login</a>
                     <a href="/register" use:link type="button" class="btn btn-warning">Sign-up</a>
