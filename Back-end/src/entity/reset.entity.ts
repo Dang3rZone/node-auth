@@ -8,6 +8,8 @@ export class Reset {
     @Column()
     email!: string;
 
-    @Column({unique: true})
+    @Column({
+        unique: true
+    })
     token!: string;
 }

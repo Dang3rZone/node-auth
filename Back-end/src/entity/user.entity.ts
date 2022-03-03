@@ -6,16 +6,18 @@ export class User {
     id!: number;
 
     @Column()
-    password!: string;
+    first_name!: string;
 
-    @Column({unique: true})
+    @Column()
+    last_name!: string;
+
+    @Column({
+        unique: true
+    })
     email!: string;
 
     @Column()
-    firstName!: string;
-
-    @Column()
-    lastName!: string;
+    password!: string;
 
     @Column({
         default: ''

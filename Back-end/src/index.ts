@@ -15,9 +15,7 @@ createConnection().then(() => {
     app.use(cookieParser());
 
     app.use(cors({
-        origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+        origin: ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:4200'],
         credentials: true
     }));
 
