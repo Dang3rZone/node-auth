@@ -11,8 +11,10 @@
     }
 </script>
 
-{#if loginData.id === 0}
-    <LoginForm on:login={login}/>
-{:else}
-    <AuthenticatorForm/>
-{/if}
+<main class="form-signin">
+    {#if loginData.id === 0}
+        <LoginForm on:login={login}/>
+    {:else}
+        <AuthenticatorForm {loginData}/>
+    {/if}
+</main>

@@ -17,7 +17,6 @@
     }
 </script>
 
-<main class="form-signin">
     <form on:submit|preventDefault={submit}>
         <h1 class="h3 mb-3 fw-normal">Please sign in!</h1>
 
@@ -40,4 +39,3 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
     </form>
-</main>
