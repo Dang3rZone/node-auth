@@ -1,6 +1,6 @@
 <script>
     import axios from "axios";
-    import {push} from "svelte-spa-router";
+    import {push, link} from "svelte-spa-router";
     import {authenticated} from "../store/auth";
 
     let email = '';
@@ -33,6 +33,10 @@
             <input bind:value={password} type="password" class="form-control" id="floatingPassword"
                    placeholder="Password">
             <label for="floatingPassword">Password</label>
+        </div>
+
+        <div class="mb-3">
+            <a href="/forgot" use:link> Forgot password?</a>
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
