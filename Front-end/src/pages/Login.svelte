@@ -6,7 +6,7 @@
     let password = '';
 
     $: submit = async () => {
-        const {data} = await axios.post('http://localhost:8000/api/login', {
+        const {data} = await axios.post('login', {
             email, password
         }, {withCredentials: true});
 
@@ -18,7 +18,7 @@
 
 <main class="form-signin">
     <form on:submit|preventDefault={submit}>
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal">Please sign in!</h1>
 
         <div class="form-floating">
             <input bind:value={email} type="email" class="form-control" id="floatingInput"

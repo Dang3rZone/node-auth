@@ -7,7 +7,6 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 createConnection().then(() => {
-
     const app = express();
 
     app.use(express.json());
@@ -21,9 +20,11 @@ createConnection().then(() => {
 
     routes(app);
 
+    app.get('/', (req, res) => {
+        res.send('hello');
+    });
+
     app.listen(8000, () => {
         console.log('Server started on port 8000');
     });
-
-
 });
