@@ -1,21 +1,19 @@
 <script>
     import axios from "axios";
-    import {push, link} from "svelte-spa-router";
-    import {authenticated} from "../store/auth";
+    import {link} from "svelte-spa-router";
+    import {createEventDispatcher} from "svelte";
 
     let email = '';
     let password = '';
 
+    const dispatch = createEventDispatcher();
+
     $: submit = async () => {
         const {data} = await axios.post('login', {
             email, password
-        }, {withCredentials: true});
+        });
 
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
-
-        authenticated.set(true);
-
-        await push('/');
+        dispatch('login', data);
     }
 </script>
 
