@@ -1,13 +1,20 @@
 <script>
-    import axios from "axios";
     import {onMount} from "svelte";
+    import axios from "axios";
+    import {authenticated} from "../store/auth";
 
     let message = 'You are not logged in';
 
     onMount(async () => {
-        const {data} = await axios.get('user');
+        const {data, status} = await axios.get('user');
 
-        message = `Hi ${data.first_name} ${data.last_name}`;
+        if (status === 200) {
+            message = `Hi ${data.first_name} ${data.last_name}`;
+            authenticated.set(true);
+        } else {
+            message = 'You are not logged in';
+            authenticated.set(false);
+        }
     });
 
 </script>

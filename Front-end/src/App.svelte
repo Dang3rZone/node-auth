@@ -3,8 +3,8 @@
     import Register from "./pages/Register.svelte";
     import Home from "./pages/Home.svelte";
     import Router, {link} from "svelte-spa-router";
-    import {onMount} from "svelte";
     import axios from "axios";
+    import {authenticated} from "./store/auth";
 
     const routes = {
         "/": Home,
@@ -14,14 +14,13 @@
 
     let auth = false;
 
-    onMount(async () => {
-        const {status} = await axios.get('user');
+    authenticated.subscribe(value => auth = value);
 
-        auth = status === 200;
-    })
-
-    $:logout = async () => {
+    $: logout = async () => {
         await axios.post('logout', {}, {withCredentials: true});
+
+        axios.defaults.headers.common['Authorization'] = '';
+        authenticated.set(false);
     }
 
 </script>

@@ -1,6 +1,7 @@
 <script>
     import axios from "axios";
     import {push} from "svelte-spa-router";
+    import {authenticated} from "../store/auth";
 
     let email = '';
     let password = '';
@@ -11,6 +12,8 @@
         }, {withCredentials: true});
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+
+        authenticated.set(true);
 
         await push('/');
     }
